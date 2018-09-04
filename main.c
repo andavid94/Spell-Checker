@@ -24,29 +24,25 @@ char* nextWord(FILE* file)
 	int length = 0;
 	char* word = malloc(sizeof(char) * maxLength);
 	//Fix me: Do the necessary change to make the implementation //case-insensitive
-	while (1)
-	{
+	while (1) {
 		char c = fgetc(file);
 		if ((c >= '0' && c <= '9') ||
 			(c >= 'A' && c <= 'Z') ||
 			(c >= 'a' && c <= 'z') ||
-			c == '\'')
-		{
-			if (length + 1 >= maxLength)
-			{
+			c == '\'') {
+			if (length + 1 >= maxLength) {
 				maxLength *= 2;
 				word = realloc(word, maxLength);
 			}
 			word[length] = c;
 			length++;
 		}
-		else if (length > 0 || c == EOF)
-		{
+		else if (length > 0 || c == EOF) {
 			break;
 		}
 	}
-	if (length == 0)
-	{
+	
+	if (length == 0) {
 		free(word);
 		return NULL;
 	}
@@ -67,8 +63,7 @@ int main(int argc, const char** argv)
 {
 	// FIXME: implement
 	const char* fileName = "input1.txt";
-	if (argc > 1)
-	{
+	if (argc > 1) {
 		fileName = argv[1];
 	}
 	printf("Opening file: %s\n", fileName);
