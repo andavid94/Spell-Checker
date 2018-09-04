@@ -12,21 +12,17 @@
 #include <assert.h>
 #include <ctype.h>
 
-int hashFunction1(const char* key)
-{
+int hashFunction1(const char* key) {
 	int r = 0;
-	for (int i = 0; key[i] != '\0'; i++)
-	{
+	for (int i = 0; key[i] != '\0'; i++) {
 		r += key[i];
 	}
 	return r;
 }
 
-int hashFunction2(const char* key)
-{
+int hashFunction2(const char* key) {
 	int r = 0;
-	for (int i = 0; key[i] != '\0'; i++)
-	{
+	for (int i = 0; key[i] != '\0'; i++) {
 		r += (i + 1) * key[i];
 	}
 	return r;
@@ -39,8 +35,7 @@ int hashFunction2(const char* key)
  * @param next Pointer to set as the link's next.
  * @return Hash table link allocated on the heap.
  */
-HashLink* hashLinkNew(const char* key, int value, HashLink* next)
-{
+HashLink* hashLinkNew(const char* key, int value, HashLink* next) {
 	HashLink* link = malloc(sizeof(HashLink));
 	link->key = malloc(sizeof(char) * (strlen(key) + 1));
 	strcpy(link->key, key);
@@ -53,8 +48,7 @@ HashLink* hashLinkNew(const char* key, int value, HashLink* next)
  * Free the allocated memory for a hash table link created with hashLinkNew.
  * @param link
  */
-static void hashLinkDelete(HashLink* link)
-{
+static void hashLinkDelete(HashLink* link) {
 	free(link->key);
 	free(link);
 }
@@ -65,13 +59,12 @@ static void hashLinkDelete(HashLink* link)
  * @param map
  * @param capacity The number of table buckets.
  */
-void hashMapInit(HashMap* map, int capacity)
-{
+void hashMapInit(HashMap* map, int capacity) {
 	map->capacity = capacity;
 	map->size = 0;
 	map->table = (HashLink**)malloc(sizeof(HashLink*) * capacity);
-	for (int i = 0; i < capacity; i++)
-	{
+	
+	for (int i = 0; i < capacity; i++) {
 		map->table[i] = NULL;
 	}
 }
@@ -391,14 +384,11 @@ float hashMapTableLoad(HashMap* map)
  */
 void hashMapPrint(HashMap* map)
 {
-	for (int i = 0; i < map->capacity; i++)
-	{
+	for (int i = 0; i < map->capacity; i++) {
 		HashLink* link = map->table[i];
-		if (link != NULL)
-		{
+		if (link != NULL) {
 			printf("\nBucket %i ->", i);
-			while (link != NULL)
-			{
+			while (link != NULL) {
 				printf(" (%s, %d) ->", link->key, link->value);
 				link = link->next;
 			}
